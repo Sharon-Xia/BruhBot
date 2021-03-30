@@ -49,7 +49,7 @@ async def on_message(message):
 		# redirect to another channel
 		# send annoying dm to rule breaker
 
-
+    """
     if message.content.startswith('$greet'):
         channel = message.channel
         await channel.send('Say hello!')
@@ -59,7 +59,7 @@ async def on_message(message):
 
         msg = await client.wait_for('message', check=check)
         await channel.send('Hello {.author}!'.format(msg))
-
+    """
 
 
 client.run(TOKEN)
