@@ -47,6 +47,8 @@ def valid_bruh(potential_bruh):
                    ":regional_indicator_b::regional_indicator_r::regional_indicator_u::regional_indicator_h:",
                    "브로", "大哥"}
 
+    print("\nprocessed bruh: '" + processed_bruh + "'\n")
+
     return processed_bruh in valid_bruhs or set(processed_bruh) == bruhset
 
 
@@ -64,7 +66,7 @@ async def on_message(message):
     # https://discordpy.readthedocs.io/en/latest/faq.html#why-does-on-message-make-my-commands-stop-working
     # await client.process_commands(message)
 
-    print('mesage got:', message)
+    print('message got:', message)
     if message.author == client.user: return
     
     # need to redo valid_bruh to check for emotes since disc doesn't process them as raw text
