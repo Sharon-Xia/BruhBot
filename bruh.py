@@ -67,29 +67,14 @@ async def on_message(message):
     print('mesage got:', message)
     if message.author == client.user: return
     
+    # need to redo valid_bruh to check for emotes since disc doesn't process them as raw text
     if not valid_bruh(message.content) and message.channel.name == BRUH_CHANNEL:
         category, position = message.channel.category, message.channel.position
         filter_channel = discord.utils.get(message.guild.channels, name=BRUH_FILTER_CHANNEL) or await message.guild.create_text_channel(BRUH_FILTER_CHANNEL, category=category, position=position)
         print(category, filter_channel)
 
         await process_and_send_message(filter_channel, message)
-
-        '''
-        channels = await message.guild.fetch_channels()
-        print(channels, "\n\n")
-        print([channel.type for channel in channels])
-        textChannelNames = [channel.name for channel in channels if channel.type is discord.ChannelType.text]
-        print(textChannelNames)
-        if BRUH_FILTER_CHANNEL not in textChannelNames:
-            bruhfilterchannel = await message.guild.create_text_channel('shilter')
-        else:
-            for channel in channels:
-                if channel.name == BRUH_FILTER_CHANNEL:
-                    bruhfilterchannel = channel
-                    break
-
-        await bruhfilterchannel.send(message)
-        '''
+        await message.delete()
     
 
 client.run(TOKEN)
