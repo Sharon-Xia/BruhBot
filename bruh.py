@@ -41,17 +41,29 @@ def valid_bruh(potential_bruh):
 
     processed_bruh = potential_bruh.replace(" ", "").lower()
 
-    valid_bruhs = {"bruh", "brough", "breh", "brih", "broh", "brhu", ":bruh:",
+    bruhset = {"b", "r", "u", "h"}
+
+    valid_bruhs = {"brough", "breh", "brih", "broh", ":bruh:",
                    ":regional_indicator_b::regional_indicator_r::regional_indicator_u::regional_indicator_h:",
                    "브로", "大哥"}
 
-    return processed_bruh in valid_bruhs
+    return processed_bruh in valid_bruhs or set(processed_bruh) == bruhset
 
-def process_message(message):
-    return "Dirty capper <@" + str(message.author.id) + "> sent to the " + BRUH_CHANNEL + " channel:\n\t" + message.content
+
+async def process_and_send_message(channel, message):
+    msgtext = "<@{0}> `sent to the {1} channel:`\n{2}".format(
+        str(message.author.id),
+        BRUH_CHANNEL,
+        ">>> " + message.content if message.content else "")
+    files = [await attachment.to_file() for attachment in message.attachments]
+    await channel.send(msgtext, files=files)
+
 
 @client.event
 async def on_message(message):
+    # https://discordpy.readthedocs.io/en/latest/faq.html#why-does-on-message-make-my-commands-stop-working
+    # await client.process_commands(message)
+
     print('mesage got:', message)
     if message.author == client.user: return
     
@@ -60,9 +72,7 @@ async def on_message(message):
         filter_channel = discord.utils.get(message.guild.channels, name=BRUH_FILTER_CHANNEL) or await message.guild.create_text_channel(BRUH_FILTER_CHANNEL, category=category, position=position)
         print(category, filter_channel)
 
-
-        await filter_channel.send(process_message(message))
-
+        await process_and_send_message(filter_channel, message)
 
         '''
         channels = await message.guild.fetch_channels()
