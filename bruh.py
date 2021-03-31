@@ -41,7 +41,7 @@ async def on_member_join(member):
 def valid_bruh(potential_bruh):
     #processed_bruh = potential_bruh.replace(" ", "").lower()
     is_emote = 0 != len(re.findall(r'<:\w*:\d*>', potential_bruh))
-    processed_bruh = re.sub(r'[^a-zA-z:🇧🇷🇺🇭 ]*', '', potential_bruh).strip().lower()
+    processed_bruh = re.sub(r'[^a-zA-z:🇧🇷🇺🇭 ]*', '', potential_bruh).replace(" ", "").lower()
 
     valid_emotes = {":bruh:"}
     bruhset = {"b", "r", "u", "h"}
