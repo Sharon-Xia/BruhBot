@@ -37,7 +37,7 @@ def valid_bruh(potential_bruh):
 	processed_bruh = potential_bruh.replace(" ", "").lower()
 	
 	valid_bruhs = {"bruh", "brough", "breh", "brih", "broh", ":bruh:", 
-		":regional_indicator_b: :regional_indicator_r: :regional_indicator_u: :regional_indicator_h:",
+		":regional_indicator_b::regional_indicator_r::regional_indicator_u::regional_indicator_h:",
 		"브로", "大哥"}
 
 	return processed_bruh in valid_bruhs
